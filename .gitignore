@@ -33,6 +33,9 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# Backups of the local user's SQLite database; never submit personal data.
+/evidence/local/
+
 # Symbolication related
 app.*.symbols
 

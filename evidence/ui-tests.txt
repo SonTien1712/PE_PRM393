@@ -1,0 +1,44 @@
+00:00 +0: loading D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: mobile form has labelled controls and sufficient touch targets
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+A SemanticsHandle was active at the end of the test.
+All SemanticsHandle instances must be disposed by calling dispose() on the SemanticsHandle.
+
+When the exception was thrown, this was the stack:
+#0      WidgetTester._verifySemanticsHandlesWereDisposed (package:flutter_test/src/widget_tester.dart:1074:7)
+#1      WidgetTester._endOfTestVerifications (package:flutter_test/src/widget_tester.dart:1063:5)
+#2      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1969:22)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  mobile form has labelled controls and sufficient touch targets
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -1: mobile form has labelled controls and sufficient touch targets [E]
+  Test failed. See exception logs above.
+  The test description was: mobile form has labelled controls and sufficient touch targets
+  
+00:01 +0 -1: mobile viewport and large amounts at Size(360.0, 640.0) / text 1.0
+00:02 +1 -1: mobile viewport and large amounts at Size(360.0, 640.0) / text 2.0
+00:03 +2 -1: mobile viewport and large amounts at Size(412.0, 915.0) / text 1.0
+00:03 +3 -1: mobile viewport and large amounts at Size(412.0, 915.0) / text 2.0
+00:04 +4 -1: mobile viewport and large amounts at Size(768.0, 1024.0) / text 1.0
+00:04 +5 -1: mobile viewport and large amounts at Size(768.0, 1024.0) / text 2.0
+00:04 +6 -1: mobile viewport and large amounts at Size(1280.0, 720.0) / text 1.0
+00:05 +7 -1: mobile viewport and large amounts at Size(1280.0, 720.0) / text 2.0
+00:05 +8 -1: mobile viewport and large amounts at Size(1440.0, 900.0) / text 1.0
+00:05 +9 -1: mobile viewport and large amounts at Size(1440.0, 900.0) / text 2.0
+00:05 +10 -1: mobile viewport and large amounts at Size(844.0, 390.0) / text 1.0
+00:06 +11 -1: mobile viewport and large amounts at Size(844.0, 390.0) / text 2.0
+00:06 +12 -1: resizing through the frame breakpoint preserves route and input
+00:06 +13 -1: keyboard and failure feedback leave the save action visible
+00:07 +14 -1: date picker and menu remain inside the Windows phone viewport
+00:07 +15 -1: golden mobile screens with the bundled Vietnamese font
+00:08 +16 -1: (tearDownAll)
+00:09 +16 -1: Some tests failed.
+
+Failing tests:
+  D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile form has labelled controls and sufficient touch targets

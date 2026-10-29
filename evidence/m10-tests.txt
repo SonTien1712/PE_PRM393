@@ -1,0 +1,573 @@
+00:00 +0: loading D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart
+00:00 +0: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: allows empty input and a complete twelve-digit edit
+00:00 +1: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: rejects the whole "-5" paste and preserves selection/composing
+00:00 +2: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: rejects the whole "+5" paste and preserves selection/composing
+00:00 +3: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: rejects the whole "1,5" paste and preserves selection/composing
+00:00 +4: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: rejects the whole "1.5" paste and preserves selection/composing
+00:00 +5: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: rejects the whole "abc" paste and preserves selection/composing
+00:00 +6: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: rejects the whole "１２３" paste and preserves selection/composing
+00:00 +7: D:/FPt/SemesterVIII/PRM393/PE/test/amount_input_formatter_test.dart: rejects the whole "1234567890123" paste and preserves selection/composing
+00:00 +8: D:/FPt/SemesterVIII/PRM393/PE/test/auth_provider_test.dart: restoration rejects session age 168:00:00.000000 and clears it
+00:00 +9: D:/FPt/SemesterVIII/PRM393/PE/test/auth_provider_test.dart: restoration rejects session age -0:00:01.000000 and clears it
+00:00 +10: D:/FPt/SemesterVIII/PRM393/PE/test/auth_provider_test.dart: just under seven days restores an existing user
+00:00 +11: D:/FPt/SemesterVIII/PRM393/PE/test/auth_provider_test.dart: a session read failure reports once without clearing saved keys
+Session read failed: Bad state: Injected session read failure
+#0      FakeSession.read (file:///D:/FPt/SemesterVIII/PRM393/PE/test/helpers/fakes.dart:105:19)
+#1      AuthProvider.restoreSession (package:pe_prm393_de190630/providers/auth_provider.dart:58:34)
+#2      main.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/auth_provider_test.dart:46:25)
+#3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +12: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: thresholds include exactly 80% and 100%, but exceeded is strictly greater
+00:00 +13: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: only upward level transitions alert
+00:00 +14: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: real SQLite budgets (setUpAll)
+00:00 +14: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: real SQLite budgets upsert preserves id, separates users and months, delete is scoped
+00:00 +15: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: real SQLite budgets repository and schema both enforce budget bounds
+00:00 +16: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: real SQLite budgets (tearDownAll)
+00:00 +16: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: budget orchestration add and edit compare actual month expense, independent of selected month
+00:00 +17: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: budget orchestration moving an expense into the budget month and changing income to expense alert
+00:00 +18: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: budget orchestration optional alert read failure never blocks the committed transaction
+Budget alert unavailable: Lỗi cơ sở dữ liệu. Vui lòng thử lại.
+#0      FakeBudgets.getForMonth (file:///D:/FPt/SemesterVIII/PRM393/PE/test/helpers/fakes.dart:74:7)
+#1      TransactionProvider._prepareBudgetAlert (package:pe_prm393_de190630/providers/transaction_provider.dart:372:37)
+#2      TransactionProvider._save (package:pe_prm393_de190630/providers/transaction_provider.dart:280:27)
+#3      TransactionProvider.add (package:pe_prm393_de190630/providers/transaction_provider.dart:253:7)
+#4      main.<anonymous closure>.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart:205:39)
+#5      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#6      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#7      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+Transaction refresh failed: Lỗi cơ sở dữ liệu. Vui lòng thử lại.
+#0      FakeBudgets.getForMonth (file:///D:/FPt/SemesterVIII/PRM393/PE/test/helpers/fakes.dart:74:7)
+#1      TransactionProvider._readMonth (package:pe_prm393_de190630/providers/transaction_provider.dart:199:35)
+<asynchronous suspension>
+#2      TransactionProvider.refresh (package:pe_prm393_de190630/providers/transaction_provider.dart:152:25)
+<asynchronous suspension>
+#3      TransactionProvider._save (package:pe_prm393_de190630/providers/transaction_provider.dart:289:22)
+<asynchronous suspension>
+#4      main.<anonymous closure>.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart:205:24)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#6      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#7      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +19: D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart: budget orchestration budget commit plus refresh failure completes normally with a read warning
+Transaction refresh failed: Lỗi cơ sở dữ liệu. Vui lòng thử lại.
+#0      FakeBudgets.getForMonth (file:///D:/FPt/SemesterVIII/PRM393/PE/test/helpers/fakes.dart:74:7)
+#1      TransactionProvider._readMonth (package:pe_prm393_de190630/providers/transaction_provider.dart:199:35)
+<asynchronous suspension>
+#2      TransactionProvider.refresh (package:pe_prm393_de190630/providers/transaction_provider.dart:152:25)
+<asynchronous suspension>
+#3      TransactionProvider._writeBudget (package:pe_prm393_de190630/providers/transaction_provider.dart:442:22)
+<asynchronous suspension>
+#4      main.<anonymous closure>.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart:215:7)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#6      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#7      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+Transaction refresh failed: Lỗi cơ sở dữ liệu. Vui lòng thử lại.
+#0      FakeBudgets.getForMonth (file:///D:/FPt/SemesterVIII/PRM393/PE/test/helpers/fakes.dart:74:7)
+#1      TransactionProvider._readMonth (package:pe_prm393_de190630/providers/transaction_provider.dart:199:35)
+<asynchronous suspension>
+#2      TransactionProvider.refresh (package:pe_prm393_de190630/providers/transaction_provider.dart:152:25)
+<asynchronous suspension>
+#3      TransactionProvider._writeBudget (package:pe_prm393_de190630/providers/transaction_provider.dart:442:22)
+<asynchronous suspension>
+#4      main.<anonymous closure>.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/budget_test.dart:223:7)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#6      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#7      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +20: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: (setUpAll)
+00:00 +20: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV uses UTF-8 BOM, chronological order, real line breaks and escaping
+00:00 +21: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: (setUpAll)
+00:00 +21: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: provider exports all captured-user rows regardless of active filters
+00:00 +22: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: real SQLite write failure is translated and does not insert a row
+00:00 +23: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: real SQLite write failure is translated and does not insert a row
+00:01 +24: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: real SQLite write failure is translated and does not insert a row
+00:01 +25: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: real SQLite write failure is translated and does not insert a row
+00:01 +26: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: real SQLite write failure is translated and does not insert a row
+00:01 +27: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: real SQLite write failure is translated and does not insert a row
+00:01 +27: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: file export file write failure returns a Vietnamese error and removes partial output
+CSV export failed: FileSystemException: Injected, path = ''
+#0      main.<anonymous closure>.<anonymous closure>.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart:215:11)
+<asynchronous suspension>
+#1      CsvExportService.export (package:pe_prm393_de190630/data/csv_export_service.dart:71:7)
+<asynchronous suspension>
+#2      Throws._matchFuture (package:matcher/src/expect/throws_matcher.dart:103:19)
+<asynchronous suspension>
+#3      _expect.<anonymous closure> (package:matcher/src/expect/expect.dart:153:17)
+<asynchronous suspension>
+#4      StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+#5      expectLater.<anonymous closure> (package:flutter_test/src/widget_tester.dart:508:19)
+<asynchronous suspension>
+#6      main.<anonymous closure>.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart:218:7)
+<asynchronous suspension>
+#7      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#8      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#9      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:01 +28: D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart: real SQLite write failure is translated and does not insert a row
+Database operation failed: SqfliteFfiException(sqlite_error: 8, , SqliteException(8): while executing statement, attempt to write a readonly database, attempt to write a readonly database (code 8)
+  Causing statement: INSERT INTO transactions (user_id, type, amount, category, date, note, created_at) VALUES (?, ?, ?, ?, ?, NULL, ?), parameters: 1, expense, 50000, Ăn uống, 2026-01-01, 2026-01-01T12:00:00Z}) DatabaseException(SqliteException(8): while executing statement, attempt to write a readonly database, attempt to write a readonly database (code 8)
+  Causing statement: INSERT INTO transactions (user_id, type, amount, category, date, note, created_at) VALUES (?, ?, ?, ?, ?, NULL, ?), parameters: 1, expense, 50000, Ăn uống, 2026-01-01, 2026-01-01T12:00:00Z) sql 'INSERT INTO transactions (user_id, type, amount, category, date, note, created_at) VALUES (?, ?, ?, ?, ?, NULL, ?)' args [1, expense, 50000, Ăn uống, 2026-01-01, 2026-01-01T12:00:00Z] {details: {database: {path: :memory:, id: 1, readOnly: false, singleInstance: false}}}
+#0      responseToResultOrThrow (package:sqflite_common_ffi/src/method_call.dart:126:9)
+#1      SqfliteIsolate.handle (package:sqflite_common_ffi/src/isolate_io.dart:84:12)
+<asynchronous suspension>
+#2      _isolateHandle (package:sqflite_common_ffi/src/database_factory_ffi_io.dart:113:10)
+<asynchronous suspension>
+#3      ffiMethodCallhandleInIsolate (package:sqflite_common_ffi/src/database_factory_ffi_io.dart:65:18)
+<asynchronous suspension>
+#4      _SqfliteDatabaseFactoryImpl.invokeMethod (package:sqflite_common/src/mixin/factory.dart:22:8)
+<asynchronous suspension>
+#5      SqfliteDatabaseMixin.txnRawInsert.<anonymous closure> (package:sqflite_common/src/database_mixin.dart:666:14)
+<asynchronous suspension>
+#6      BasicLock.synchronized (package:synchronized/src/basic_lock.dart:38:16)
+<asynchronous suspension>
+#7      SqfliteDatabaseMixin.txnSynchronized (package:sqflite_common/src/database_mixin.dart:592:14)
+<asynchronous suspension>
+#8      runDatabaseOperation (package:pe_prm393_de190630/data/repositories/repository_support.dart:9:12)
+<asynchronous suspension>
+#9      Throws._matchFuture (package:matcher/src/expect/throws_matcher.dart:103:19)
+<asynchronous suspension>
+#10     _expect.<anonymous closure> (package:matcher/src/expect/expect.dart:153:17)
+<asynchronous suspension>
+#11     StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+#12     expectLater.<anonymous closure> (package:flutter_test/src/widget_tester.dart:508:19)
+<asynchronous suspension>
+#13     main.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/database_error_test.dart:21:9)
+<asynchronous suspension>
+#14     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#15     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#16     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:01 +29: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:01 +30: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:01 +31: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:01 +32: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:01 +33: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:01 +33: D:/FPt/SemesterVIII/PRM393/PE/test/month_dashboard_test.dart: late month error cannot replace newer selection
+Month refresh failed: Old month error
+dart:async/future_impl.dart 21:26                              _interceptError
+dart:async/future_impl.dart 52:23                              _interceptUserError
+dart:async/future_impl.dart 82:26                              _Completer.completeError
+test\month_dashboard_test.dart 69:16                           main.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 841:35                                    _CustomZone.registerUnaryCallback
+test\month_dashboard_test.dart 60:9                            main.<fn>
+package:test_api/src/backend/declarer.dart 253:25              Declarer.test.<fn>.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 841:35                                    _CustomZone.registerUnaryCallback
+package:test_api/src/backend/declarer.dart 252:15              Declarer.test.<fn>.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/declarer.dart 250:17              Declarer.test.<fn>
+package:test_api/src/backend/invoker.dart 318:17               Invoker._waitForOutstandingCallbacks.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/invoker.dart 314:5                Invoker._waitForOutstandingCallbacks
+package:test_api/src/backend/invoker.dart 457:21               Invoker._onRun.<fn>.<fn>.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 841:35                                    _CustomZone.registerUnaryCallback
+package:test_api/src/backend/invoker.dart 455:15               Invoker._onRun.<fn>.<fn>.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/invoker.dart 445:11               Invoker._onRun.<fn>.<fn>
+package:test_api/src/backend/invoker.dart 500:15               Invoker._guardIfGuarded
+package:test_api/src/backend/invoker.dart 444:9                Invoker._onRun.<fn>
+package:stack_trace/src/chain.dart 97:24                       Chain.capture.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:stack_trace/src/chain.dart 95:12                       Chain.capture
+package:test_api/src/backend/invoker.dart 442:11               Invoker._onRun
+package:test_api/src/backend/live_test_controller.dart 161:11  LiveTestController.run
+package:test_api/src/backend/remote_listener.dart 320:16       RemoteListener._runLiveTest.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/remote_listener.dart 319:5        RemoteListener._runLiveTest
+package:test_api/src/backend/remote_listener.dart 261:7        RemoteListener._serializeTest.<fn>
+dart:async/zone_root.dart 48:47                                _rootRunUnary
+dart:async/zone.dart 816:35                                    _CustomZone.runUnary
+dart:async/zone.dart 710:7                                     _CustomZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/zone_root.dart 56:13                                _rootRunUnary
+dart:async/zone.dart 816:35                                    _CustomZone.runUnary
+dart:async/zone.dart 710:7                                     _CustomZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+package:stream_channel/src/guarantee_channel.dart 125:12       _GuaranteeSink.add
+package:stream_channel/src/multi_channel.dart 159:31           new _MultiChannel.<fn>
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:_internal/async_cast.dart 95:11                           CastStreamSubscription._onData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_pipe.dart 154:11                             _ForwardingStreamSubscription._add
+dart:async/stream_pipe.dart 252:10                             _MapStream._handleData
+dart:async/stream_pipe.dart 184:13                             _ForwardingStreamSubscription._handleData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:_http/websocket_impl.dart 1530:27                         new _WebSocketImpl._fromSocket.<fn>
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_transformers.dart 67:11                      _SinkTransformerStreamSubscription._add
+dart:async/stream_transformers.dart 13:11                      _EventSinkWrapper.add
+dart:_http/websocket_impl.dart 525:23                          _WebSocketProtocolTransformer._messageFrameEnd
+dart:_http/websocket_impl.dart 409:46                          _WebSocketProtocolTransformer.add
+dart:async/stream_transformers.dart 115:24                     _SinkTransformerStreamSubscription._handleData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:io-patch/socket_patch.dart 2906:41                        _Socket._onData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:io-patch/socket_patch.dart 2344:31                        new _RawSocket.<fn>
+dart:io-patch/socket_patch.dart 1679:14                        _NativeSocket.issueReadEvent.issue
+dart:async/schedule_microtask.dart 40:35                       _microtaskLoop
+dart:async/schedule_microtask.dart 49:5                        _startMicrotaskLoop
+
+00:01 +34: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:01 +35: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:01 +36: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +37: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +38: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +39: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +40: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +41: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +42: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +42: D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart: real registration hashes credentials, logs in, restores and starts with no transactions
+Registration failed: Tên đăng nhập đã tồn tại
+#0      UserRepository.register.<anonymous closure> (package:pe_prm393_de190630/data/repositories/user_repository.dart:72:9)
+<asynchronous suspension>
+#1      runDatabaseOperation (package:pe_prm393_de190630/data/repositories/repository_support.dart:9:12)
+<asynchronous suspension>
+#2      AuthProvider.register (package:pe_prm393_de190630/providers/auth_provider.dart:139:20)
+<asynchronous suspension>
+#3      main.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart:57:12)
+<asynchronous suspension>
+#4      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#6      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:02 +43: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +43: D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart: session failure after account creation reports creation without repeating registration
+Registration failed: Bad state: Injected session write failure
+#0      _FailingSave.save (file:///D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart:146:7)
+#1      AuthProvider.register (package:pe_prm393_de190630/providers/auth_provider.dart:147:22)
+<asynchronous suspension>
+#2      main.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart:67:12)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:02 +44: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +45: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +46: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +46: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_provider_test.dart: old-user error cannot alter new state
+Transaction refresh failed: Old-user failure
+dart:async/future_impl.dart 21:26                              _interceptError
+dart:async/future_impl.dart 52:23                              _interceptUserError
+dart:async/future_impl.dart 82:26                              _Completer.completeError
+test\transaction_provider_test.dart 68:19                      main.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 841:35                                    _CustomZone.registerUnaryCallback
+test\transaction_provider_test.dart 52:9                       main.<fn>
+package:test_api/src/backend/declarer.dart 253:25              Declarer.test.<fn>.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 841:35                                    _CustomZone.registerUnaryCallback
+package:test_api/src/backend/declarer.dart 252:15              Declarer.test.<fn>.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/declarer.dart 250:17              Declarer.test.<fn>
+package:test_api/src/backend/invoker.dart 318:17               Invoker._waitForOutstandingCallbacks.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/invoker.dart 314:5                Invoker._waitForOutstandingCallbacks
+package:test_api/src/backend/invoker.dart 457:21               Invoker._onRun.<fn>.<fn>.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 841:35                                    _CustomZone.registerUnaryCallback
+package:test_api/src/backend/invoker.dart 455:15               Invoker._onRun.<fn>.<fn>.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/invoker.dart 445:11               Invoker._onRun.<fn>.<fn>
+package:test_api/src/backend/invoker.dart 500:15               Invoker._guardIfGuarded
+package:test_api/src/backend/invoker.dart 444:9                Invoker._onRun.<fn>
+package:stack_trace/src/chain.dart 97:24                       Chain.capture.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:stack_trace/src/chain.dart 95:12                       Chain.capture
+package:test_api/src/backend/invoker.dart 442:11               Invoker._onRun
+package:test_api/src/backend/live_test_controller.dart 161:11  LiveTestController.run
+package:test_api/src/backend/remote_listener.dart 320:16       RemoteListener._runLiveTest.<fn>
+dart:async/zone_root.dart 35:13                                _rootRun
+dart:async/zone.dart 810:35                                    _CustomZone.run
+dart:async/zone_api.dart 165:6                                 _runZoned
+dart:async/zone_api.dart 91:10                                 runZoned
+package:test_api/src/backend/remote_listener.dart 319:5        RemoteListener._runLiveTest
+package:test_api/src/backend/remote_listener.dart 261:7        RemoteListener._serializeTest.<fn>
+dart:async/zone_root.dart 48:47                                _rootRunUnary
+dart:async/zone.dart 816:35                                    _CustomZone.runUnary
+dart:async/zone.dart 710:7                                     _CustomZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/zone_root.dart 56:13                                _rootRunUnary
+dart:async/zone.dart 816:35                                    _CustomZone.runUnary
+dart:async/zone.dart 710:7                                     _CustomZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+package:stream_channel/src/guarantee_channel.dart 125:12       _GuaranteeSink.add
+package:stream_channel/src/multi_channel.dart 159:31           new _MultiChannel.<fn>
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:_internal/async_cast.dart 95:11                           CastStreamSubscription._onData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_pipe.dart 154:11                             _ForwardingStreamSubscription._add
+dart:async/stream_pipe.dart 252:10                             _MapStream._handleData
+dart:async/stream_pipe.dart 184:13                             _ForwardingStreamSubscription._handleData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:_http/websocket_impl.dart 1530:27                         new _WebSocketImpl._fromSocket.<fn>
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_transformers.dart 67:11                      _SinkTransformerStreamSubscription._add
+dart:async/stream_transformers.dart 13:11                      _EventSinkWrapper.add
+dart:_http/websocket_impl.dart 525:23                          _WebSocketProtocolTransformer._messageFrameEnd
+dart:_http/websocket_impl.dart 409:46                          _WebSocketProtocolTransformer.add
+dart:async/stream_transformers.dart 115:24                     _SinkTransformerStreamSubscription._handleData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:io-patch/socket_patch.dart 2906:41                        _Socket._onData
+dart:async/zone.dart 963:10                                    _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                        _StreamController._add
+dart:async/stream_controller.dart 618:5                        _StreamController.add
+dart:io-patch/socket_patch.dart 2344:31                        new _RawSocket.<fn>
+dart:io-patch/socket_patch.dart 1679:14                        _NativeSocket.issueReadEvent.issue
+dart:async/schedule_microtask.dart 40:35                       _microtaskLoop
+dart:async/schedule_microtask.dart 49:5                        _startMicrotaskLoop
+
+00:02 +47: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +47: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_provider_test.dart: committed insert stays successful when its refresh fails
+Transaction refresh failed: Lỗi cơ sở dữ liệu.
+#0      _TransactionRepository.getAll (file:///D:/FPt/SemesterVIII/PRM393/PE/test/transaction_provider_test.dart:242:20)
+#1      TransactionProvider.refresh (package:pe_prm393_de190630/providers/transaction_provider.dart:148:40)
+#2      TransactionProvider._save (package:pe_prm393_de190630/providers/transaction_provider.dart:289:28)
+<asynchronous suspension>
+#3      main.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/transaction_provider_test.dart:88:20)
+<asynchronous suspension>
+#4      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#6      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:02 +48: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +49: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +50: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +50: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_provider_test.dart: committed delete removes local row despite a failed refresh
+Transaction refresh failed: Lỗi cơ sở dữ liệu.
+#0      _TransactionRepository.getAll (file:///D:/FPt/SemesterVIII/PRM393/PE/test/transaction_provider_test.dart:242:20)
+#1      TransactionProvider.refresh (package:pe_prm393_de190630/providers/transaction_provider.dart:148:40)
+#2      TransactionProvider.delete (package:pe_prm393_de190630/providers/transaction_provider.dart:332:28)
+<asynchronous suspension>
+#3      main.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/transaction_provider_test.dart:163:12)
+<asynchronous suspension>
+#4      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#6      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+00:02 +51: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:02 +52: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +53: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +54: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +55: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +56: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +57: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +58: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +59: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +60: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +61: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +62: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +63: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +64: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +65: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +66: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +67: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +68: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +69: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +70: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +71: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +72: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +73: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +74: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +75: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +76: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +77: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:03 +78: D:/FPt/SemesterVIII/PRM393/PE/test/csv_export_test.dart: CSV menu is available only on the list tab and empty export is explained
+00:04 +79: D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart: registration opens Home with empty user data and a cleared stack
+00:05 +80: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: login, dashboard, form, and Vietnamese picker at Size(360.0, 640.0)
+00:05 +81: D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart: duplicate username is inline, editable and can be resubmitted
+Registration failed: Tên đăng nhập đã tồn tại
+#0      FakeUsers.register (file:///D:/FPt/SemesterVIII/PRM393/PE/test/helpers/fakes.dart:50:7)
+#1      AuthProvider.register (package:pe_prm393_de190630/providers/auth_provider.dart:139:33)
+#2      _RegisterScreenState._register (package:pe_prm393_de190630/screens/register_screen.dart:37:29)
+#3      _RegisterScreenState.build.<anonymous closure> (package:pe_prm393_de190630/screens/register_screen.dart:170:44)
+#4      EditableTextState._finalizeEditing (package:flutter/src/widgets/editable_text.dart:3963:18)
+#5      EditableTextState.performAction (package:flutter/src/widgets/editable_text.dart:3753:9)
+#6      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2280:39)
+#7      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:2145:20)
+#8      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+#9      MethodChannel.setMethodCallHandler.<anonymous closure> (package:flutter/src/services/platform_channel.dart:597:55)
+#10     TestDefaultBinaryMessenger.handlePlatformMessage (package:flutter_test/src/test_default_binary_messenger.dart:99:42)
+#11     TestTextInput.receiveAction.<anonymous closure> (package:flutter_test/src/test_text_input.dart:234:73)
+#12     _rootRun (dart:async/zone_root.dart:35:13)
+#13     _CustomZone.run (dart:async/zone.dart:810:35)
+#14     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#15     TestTextInput.receiveAction (package:flutter_test/src/test_text_input.dart:232:27)
+#16     main.fill (file:///D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart:89:32)
+<asynchronous suspension>
+#17     main.<anonymous closure> (file:///D:/FPt/SemesterVIII/PRM393/PE/test/registration_test.dart:115:5)
+<asynchronous suspension>
+#18     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#19     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+#20     StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+
+00:06 +82: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: login, dashboard, form, and Vietnamese picker at Size(1280.0, 720.0)
+00:06 +83: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: login, dashboard, form, and Vietnamese picker at Size(1280.0, 720.0)
+00:06 +84: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: rapid Save clicks wait for one insert and close once
+00:07 +85: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: committed insert with read failure closes with one warning
+Transaction refresh failed: Lỗi cơ sở dữ liệu. Vui lòng thử lại.
+#0      FakeTransactions.getAll (file:///D:/FPt/SemesterVIII/PRM393/PE/test/helpers/fakes.dart:134:7)
+#1      TransactionProvider.refresh (package:pe_prm393_de190630/providers/transaction_provider.dart:148:40)
+#2      TransactionProvider._save (package:pe_prm393_de190630/providers/transaction_provider.dart:289:28)
+<asynchronous suspension>
+#3      _TransactionFormScreenState._save (package:pe_prm393_de190630/screens/transaction_form_screen.dart:93:13)
+<asynchronous suspension>
+
+00:08 +86: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: logout above stacked protected routes redirects once and clears stack
+00:08 +87: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: direct protected route while signed out never builds a form
+00:08 +88: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: edit updates live detail and totals; delete cancel/confirm closes once
+00:09 +89: D:/FPt/SemesterVIII/PRM393/PE/test/transaction_form_test.dart: (tearDownAll)
+00:09 +89: All tests passed!

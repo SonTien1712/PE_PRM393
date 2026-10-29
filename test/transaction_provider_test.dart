@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pe_prm393_de190630/core/app_exception.dart';
 import 'package:pe_prm393_de190630/data/models/finance_transaction.dart';
+import 'package:pe_prm393_de190630/data/models/category_total.dart';
 import 'package:pe_prm393_de190630/data/models/summary_totals.dart';
-import 'package:pe_prm393_de190630/data/repositories/budget_repository.dart';
 import 'package:pe_prm393_de190630/data/repositories/transaction_repository.dart';
 import 'package:pe_prm393_de190630/providers/transaction_provider.dart';
+
+import 'helpers/fakes.dart';
 
 void main() {
   late _TransactionRepository repository;
@@ -113,6 +115,7 @@ void main() {
       final write = Completer<void>();
       repository.writeGate = write;
       final saving = provider.add(_row(null, 999));
+      await _flush();
       expect(repository.insertCalls, 1);
 
       provider.setUser(2);
@@ -221,7 +224,7 @@ FinanceTransaction _row(int? id, int userId) => FinanceTransaction(
   createdAt: '2026-10-28T10:00:00',
 );
 
-class _BudgetRepository extends Fake implements BudgetRepository {}
+class _BudgetRepository extends FakeBudgets {}
 
 class _TransactionRepository extends Fake implements TransactionRepository {
   final rows = <int, List<FinanceTransaction>>{};
@@ -247,9 +250,16 @@ class _TransactionRepository extends Fake implements TransactionRepository {
     String? fromDate,
     String? toExclusive,
   }) async {
-    totalOwners.add(userId);
+    if (fromDate == null) totalOwners.add(userId);
     return const SummaryTotals(income: 9000, expense: 4000);
   }
+
+  @override
+  Future<List<CategoryTotal>> getExpenseByCategory(
+    int userId,
+    String fromDate,
+    String toExclusive,
+  ) async => const [];
 
   @override
   Future<int> insert(FinanceTransaction transaction) async {

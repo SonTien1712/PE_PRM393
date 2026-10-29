@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../core/app_routes.dart';
+import '../core/app_spacing.dart';
+import '../core/app_theme.dart';
 import '../providers/transaction_provider.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/filter_bar.dart';
@@ -62,6 +64,12 @@ class _TransactionListScreenState extends State<TransactionListScreen> {
     _provider!.clearFilters();
   }
 
+  void _clearSearch() {
+    _debounce?.cancel();
+    _search.clear();
+    _provider!.setSearch('');
+  }
+
   @override
   void dispose() {
     _debounce?.cancel();
@@ -91,38 +99,64 @@ class _TransactionListScreenState extends State<TransactionListScreen> {
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
                   child: Column(
                     children: [
-                      TextField(
-                        controller: _search,
-                        onChanged: _onSearch,
-                        textInputAction: TextInputAction.search,
-                        onSubmitted: (query) {
-                          _debounce?.cancel();
-                          provider.setSearch(query);
-                        },
-                        onTapOutside: (_) =>
-                            FocusManager.instance.primaryFocus?.unfocus(),
-                        decoration: InputDecoration(
-                          hintText: 'Tìm ghi chú hoặc danh mục',
-                          prefixIcon: const Icon(Icons.search_rounded),
-                          suffixIcon: IconButton(
-                            tooltip: 'Xóa tìm kiếm',
-                            icon: const Icon(Icons.close_rounded),
-                            onPressed: () {
-                              _debounce?.cancel();
-                              _search.clear();
-                              provider.setSearch('');
-                            },
+                      ValueListenableBuilder<TextEditingValue>(
+                        valueListenable: _search,
+                        builder: (context, value, _) => TextField(
+                          controller: _search,
+                          onChanged: _onSearch,
+                          textInputAction: TextInputAction.search,
+                          onSubmitted: (query) {
+                            _debounce?.cancel();
+                            provider.setSearch(query);
+                          },
+                          onTapOutside: (_) =>
+                              FocusManager.instance.primaryFocus?.unfocus(),
+                          decoration: InputDecoration(
+                            hintText: 'Tìm ghi chú hoặc danh mục',
+                            prefixIcon: const Icon(Icons.search_rounded),
+                            suffixIcon: value.text.isEmpty
+                                ? null
+                                : IconButton(
+                                    tooltip: 'Xóa tìm kiếm',
+                                    icon: const Icon(Icons.close_rounded),
+                                    onPressed: _clearSearch,
+                                  ),
                           ),
                         ),
                       ),
                       const SizedBox(height: 12),
                       FilterBar(provider: provider, onClear: _clearFilters),
+                      if (provider.searchQuery.trim().isNotEmpty ||
+                          provider.typeFilter != null ||
+                          provider.categoryFilter != null) ...[
+                        const SizedBox(height: AppSpacing.sm),
+                        ActiveFilterChips(
+                          provider: provider,
+                          onClearSearch: _clearSearch,
+                        ),
+                      ],
                       Row(
                         children: [
                           Expanded(
-                            child: Text(
-                              '${rows.length} giao dịch · ${FilterBar.sortLabels[provider.sort]}',
-                              style: Theme.of(context).textTheme.bodySmall,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.incomeSurface,
+                                  border: Border.all(color: AppTheme.line),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  provider.hasLoaded
+                                      ? '${rows.length} giao dịch'
+                                      : 'Đang tải giao dịch…',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
                             ),
                           ),
                           IconButton(
@@ -154,15 +188,20 @@ class _TransactionListScreenState extends State<TransactionListScreen> {
                       }
                       if (!provider.hasLoaded) {
                         return EmptyState(
-                          icon: Icons.cloud_off_outlined,
+                          icon: Icons.storage_outlined,
                           message: 'Chưa tải được dữ liệu.',
                           actionLabel: 'Tải lại',
                           onAction: () => provider.refresh(),
                         );
                       }
                       if (provider.all.isEmpty) {
-                        return const EmptyState(
+                        return EmptyState(
                           message: 'Chưa có giao dịch. Nhấn + để thêm.',
+                          actionLabel: 'Thêm giao dịch',
+                          onAction: () => Navigator.pushNamed(
+                            context,
+                            AppRoutes.transactionNew,
+                          ),
                         );
                       }
                       return EmptyState(

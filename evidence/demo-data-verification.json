@@ -1,0 +1,14 @@
+{
+  "users_preserved": true,
+  "transactions_preserved": true,
+  "budgets_preserved": true,
+  "demo_passwords_verify": true,
+  "integrity": "ok",
+  "foreign_key_errors": 0,
+  "total_counts": {
+    "users": 5,
+    "transactions": 40,
+    "budgets": 4
+  },
+  "result": "passed"
+}

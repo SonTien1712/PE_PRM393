@@ -1,12 +1,23 @@
-# Log kiểm chứng tự động
+# Nhật ký kiểm chứng
 
-Ngày 28/10/2026, Windows 11 x64, Flutter 3.47.0 / Dart 3.13.0.
+Cập nhật 29/10/2026, Windows 11 x64, Flutter 3.47.0 / Dart 3.13.0.
 
-- format.txt: `dart format .`, 58 file, không có thay đổi ở lượt cuối.
-- analyze.txt: `flutter analyze`, không có vấn đề.
-- tests.txt: `flutter test --reporter expanded`, 63 test qua, gồm SQLite thật trong memory/trên đĩa và widget/provider tests.
-- windows-build.txt: `flutter build windows --release`, thất bại vì thiếu Visual Studio C++.
+Các log nghiệm thu hiện tại:
 
-Trong môi trường sandbox, Flutter CLI được gọi qua Dart SDK và flutter_tools.snapshot đã cài sẵn để có quyền cache SDK; các lệnh tương đương là lệnh chuẩn ở trên. Log giữ nguyên output công cụ, gồm stack trace từ những lỗi được chủ động tạo để kiểm tra error handling; chúng không phải test failure khi dòng kết thúc ghi All tests passed.
+- format.txt: `dart format --output=none --set-exit-if-changed lib test integration_test tool`, 90 file, 0 thay đổi ở lượt cuối.
+- analyze.txt: `flutter analyze --no-pub`, không có vấn đề.
+- tests.txt: `flutter test --no-pub --reporter expanded`, 120 test qua, gồm SQLite thật, provider/widget/golden tests, accessibility form và 6 test công cụ demo.
+- windows-native-test.txt: integration_test/windows_smoke_test.dart trên Windows, 1 test qua; build debug và thao tác native với DB tạm riêng.
+- native/: bảy ảnh native và metadata, bao gồm viewport 430 dp; login lỗi inline/nhập lại, ngân sách, thêm giao dịch, detail/action Sửa, cảnh báo 90%, CSV BOM và SQLite close-reopen đã kiểm tra.
+- windows-build.txt: `flutter build windows --release --no-pub`, build thành công. Bundle có sqlite3.dll; không tải DLL thủ công.
+- android-build.txt: `flutter build apk --debug --no-pub` thành công; build/app/outputs/flutter-apk/app-debug.apk. Tắt Kotlin incremental compilation để tránh lỗi cache khác ổ C:/D:. Chưa chạy APK trên thiết bị.
+- demo-data-summary.json / demo-seed.txt: lần nạp thực tế ba tài khoản dành riêng, 39 giao dịch và 4 ngân sách vào DB Windows.
+- demo-data-verification.json: đối chiếu backup xác nhận users/transactions/budgets cũ nguyên vẹn, password hash khớp, quick_check OK và không lỗi foreign key.
+- demo-tests.txt: sáu test công cụ seed/backup/rollback/idempotence và baseline trình bày qua.
+- demo-plan.txt: chạy CLI không có --apply sau khi nạp, xác nhận chế độ xem không ghi và số liệu 35/4/0 giao dịch của ba tài khoản.
+- demo-docs-check.json: 73 liên kết tài liệu hợp lệ, cả 63 file lib/ được dẫn trong bản đồ method.
+- local/: backup SQLite trước seed, đã được gitignore; không đưa dữ liệu cũ của người dùng vào bài nộp công khai.
 
-Chưa có ảnh/video Windows native hoặc kiểm thử Android. Widget tests dùng fake repositories để tránh I/O dưới fake clock; ứng dụng runtime dùng SQLite thật. Không dùng các log này để khẳng định đã quay hoặc chạy một tiến trình release Windows.
+m7/m8/m9/m10/ui-* lưu các lượt phát triển, có thể chứa lỗi trung gian đã được sửa. Khi đánh giá phiên bản hiện tại, dùng log nghiệm thu ở trên. Stack trace của lỗi được chủ động tạo để kiểm tra error handling không phải test failure nếu dòng cuối ghi All tests passed.
+
+Ứng dụng runtime dùng SQLite thật. Golden dùng fixture test; Windows integration dùng DB tạm và session memory để không tác động dữ liệu người dùng. Chưa có video restart tiến trình, kiểm chứng startup Release hay ảnh Android/share sheet. Xem TEST_RESULTS/SCREENSHOTS cho các bước còn cần thu.

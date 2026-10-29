@@ -1,0 +1,27 @@
+00:00 +0: loading D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart
+00:00 +0: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: (setUpAll)
+00:00 +0: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile form has labelled controls and sufficient touch targets
+00:02 +1: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile form has labelled controls and sufficient touch targets
+00:02 +2: D:/FPt/SemesterVIII/PRM393/PE/test/ui_upgrade_test.dart: first load shows placeholders without fabricated zero totals
+00:02 +3: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(360.0, 640.0) / text 1.0
+00:03 +4: D:/FPt/SemesterVIII/PRM393/PE/test/ui_upgrade_test.dart: visible sorting and removable chips keep independent filter state
+00:03 +5: D:/FPt/SemesterVIII/PRM393/PE/test/ui_upgrade_test.dart: visible sorting and removable chips keep independent filter state
+00:04 +6: D:/FPt/SemesterVIII/PRM393/PE/test/ui_upgrade_test.dart: visible sorting and removable chips keep independent filter state
+00:04 +7: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(412.0, 915.0) / text 2.0
+00:04 +8: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(412.0, 915.0) / text 2.0
+00:05 +9: D:/FPt/SemesterVIII/PRM393/PE/test/ui_upgrade_test.dart: detail reads a long amount and note, with a visible edit action at text 1.0
+00:05 +10: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(768.0, 1024.0) / text 1.0
+00:05 +11: D:/FPt/SemesterVIII/PRM393/PE/test/ui_upgrade_test.dart: detail reads a long amount and note, with a visible edit action at text 2.0
+00:06 +12: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(768.0, 1024.0) / text 2.0
+00:06 +13: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(1280.0, 720.0) / text 1.0
+00:06 +14: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(1280.0, 720.0) / text 2.0
+00:07 +15: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(1440.0, 900.0) / text 1.0
+00:07 +16: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(1440.0, 900.0) / text 2.0
+00:07 +17: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(844.0, 390.0) / text 1.0
+00:08 +18: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: mobile viewport and large amounts at Size(844.0, 390.0) / text 2.0
+00:08 +19: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: resizing through the frame breakpoint preserves route and input
+00:09 +20: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: keyboard and failure feedback leave the save action visible
+00:09 +21: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: date picker and menu remain inside the Windows phone viewport
+00:09 +22: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: golden mobile screens with the bundled Vietnamese font
+00:11 +23: D:/FPt/SemesterVIII/PRM393/PE/test/mobile_layout_test.dart: (tearDownAll)
+00:11 +23: All tests passed!

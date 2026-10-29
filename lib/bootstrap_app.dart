@@ -6,12 +6,14 @@ import 'package:provider/provider.dart';
 import 'app.dart';
 import 'core/app_theme.dart';
 import 'data/app_database.dart';
+import 'data/csv_export_service.dart';
 import 'data/repositories/budget_repository.dart';
 import 'data/repositories/transaction_repository.dart';
 import 'data/repositories/user_repository.dart';
 import 'data/session_storage.dart';
 import 'providers/auth_provider.dart';
 import 'providers/transaction_provider.dart';
+import 'widgets/mobile_app_frame.dart';
 
 class BootstrapApp extends StatefulWidget {
   const BootstrapApp({super.key});
@@ -45,6 +47,7 @@ class _BootstrapAppState extends State<BootstrapApp> {
         title: 'Sổ Thu Chi',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
+        builder: (context, child) => MobileAppFrame(child: child!),
         locale: const Locale('vi'),
         supportedLocales: const [Locale('vi')],
         localizationsDelegates: const [
@@ -98,6 +101,7 @@ class _BootstrapAppState extends State<BootstrapApp> {
 Widget buildInitializedApp(AppDatabase appDb) => MultiProvider(
   providers: [
     Provider.value(value: appDb),
+    Provider(create: (_) => CsvExportService()),
     Provider(create: (_) => UserRepository(appDb)),
     Provider(create: (_) => TransactionRepository(appDb)),
     Provider(create: (_) => BudgetRepository(appDb)),

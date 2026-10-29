@@ -1,0 +1,9 @@
+dart run tool/seed_demo_data.dart [--apply] [--database PATH] [--as-of yyyy-MM-dd]
+  [--backup-dir evidence/local] [--report evidence/demo-data-summary.json]
+
+Mặc định chỉ xem kế hoạch và dữ liệu demo hiện có.
+--apply tạo backup SQLite rồi thêm 3 tài khoản demo còn thiếu trong transaction.
+Không reset tài khoản đã có, không thay đổi demo1/demo2 hoặc phiên đăng nhập.
+Ngày mặc định theo Asia/Saigon (UTC+7). Chạy app một lần để tạo DB trước.
+
+Running build hooks...Running build hooks...

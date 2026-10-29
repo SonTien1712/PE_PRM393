@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-10-28T22:58:15.147429Z",
+  "asOf": "2026-10-29",
+  "database": "C:\\Users\\Admin\\AppData\\Roaming\\com.example\\pe_prm393_de190630\\finance_tracker.db",
+  "applied": false,
+  "backup": null,
+  "changes": null,
+  "plannedAccounts": [
+    {
+      "username": "presenter_demo",
+      "transactions": 35,
+      "budgets": 3
+    },
+    {
+      "username": "overbudget_demo",
+      "transactions": 4,
+      "budgets": 1
+    },
+    {
+      "username": "empty_demo",
+      "transactions": 0,
+      "budgets": 0
+    }
+  ],
+  "actualAccounts": [
+    {
+      "id": 3,
+      "username": "presenter_demo",
+      "display_name": "Minh Anh Demo",
+      "count": 35,
+      "income": 57500000,
+      "expense": 28300000,
+      "balance": 29200000,
+      "months": [
+        {
+          "month": "2026-10",
+          "limit_amount": 10000000,
+          "income": 21000000,
+          "expense": 7900000
+        },
+        {
+          "month": "2026-09",
+          "limit_amount": 10000000,
+          "income": 20000000,
+          "expense": 9600000
+        },
+        {
+          "month": "2026-08",
+          "limit_amount": 10000000,
+          "income": 16500000,
+          "expense": 10800000
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "username": "overbudget_demo",
+      "display_name": "Vượt chi Demo",
+      "count": 4,
+      "income": 5000000,
+      "expense": 5750000,
+      "balance": -750000,
+      "months": [
+        {
+          "month": "2026-10",
+          "limit_amount": 5000000,
+          "income": 5000000,
+          "expense": 5750000
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "username": "empty_demo",
+      "display_name": "Sổ trống Demo",
+      "count": 0,
+      "income": 0,
+      "expense": 0,
+      "balance": 0,
+      "months": []
+    }
+  ]
+}
+Running build hooks...Running build hooks...

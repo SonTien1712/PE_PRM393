@@ -1,0 +1,6 @@
+00:00 +0: loading D:/FPt/SemesterVIII/PRM393/PE/integration_test/windows_smoke_test.dart
+Building Windows application...                                    24.8s
+√ Built build\windows\x64\runner\Debug\pe_prm393_de190630.exe
+00:00 +0: Windows native mobile frame, SQLite CRUD, budget, CSV and reopen
+00:19 +1: (tearDownAll)
+00:19 +1: All tests passed!

@@ -1,1 +1,2 @@
-Unable to find suitable Visual Studio toolchain. Please run `flutter doctor` for more details.
+Building Windows application...                                    36.2s
+√ Built build\windows\x64\runner\Release\pe_prm393_de190630.exe

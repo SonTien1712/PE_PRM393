@@ -6,6 +6,8 @@
 > **If anything is ambiguous, follow Section 3 (Locked Decisions). Do not invent alternatives.**
 > **Primary platform:** Windows desktop (via `sqflite_common_ffi`). Android stays supported by the same code. See Sections 2.2 and 3.
 
+> **Owner update — 28/10/2026:** This is a mobile-app course project developed on Windows. Use a phone-like viewport on wide Windows windows (430 dp content, a thin device frame), and full-width responsive UI on phones/narrow windows. Keep bottom navigation on all widths; the earlier Desktop v2 rail/wide-dashboard proposal is superseded. The owner explicitly requests M7–M10 now; implement and test them while continuing to mark any missing native/manual baseline evidence as unverified.
+
 ---
 
 ## 0. How you (the AI) must work
@@ -141,6 +143,7 @@ All repository/SQL code stays identical on every platform because `databaseFacto
 | Passwords | `sha256("$salt:$password")` with a random per-user salt (16 random bytes, base64url). Hash and salt stored in `users`. Retain this PE implementation; document its limitations in REPORT, without adding a password-hashing package |
 | Usernames | Stored lowercase; matched case-insensitively; regex `^[a-z0-9_]{3,30}$` |
 | Seed accounts | `demo1 / Demo@123` and `demo2 / Demo@456` (created in `onCreate`, hashed at creation) |
+| Presentation data | At the owner's request on 2026-10-29, an explicit Dart CLI tool may back up the existing DB and add three reserved presentation accounts with demo transactions/budgets. No automatic transaction seeding at app startup. See DEMO_DATA_GUIDE.md |
 | Categories | Fixed lists per type (Section 7.3). Changing type in the form resets category |
 | Summary cards | The three main cards (Income, Expense, Balance) are **all-time totals for the current user** and are never affected by search/filter or the month selector |
 | Month section | A separate "Theo tháng" section on the dashboard with its own month selector, visible from M7; budget controls appear from M8 |
@@ -152,11 +155,11 @@ All repository/SQL code stays identical on every platform because `databaseFacto
 | `setUser` timing | `setUser` runs inside a provider `update:` callback, i.e. **during build**. It must clear state **silently** and defer `notifyListeners()`/`refresh()` with `scheduleMicrotask` (Section 7.1) |
 | Logout navigation | Only `RequireAuth` navigates after logout. The logout handler calls `auth.logout()` and does **not** navigate itself |
 | Localization | `flutter_localizations`, `locale: Locale('vi')`, Vietnamese supported locale and Material/Widgets/Cupertino delegates; retain `vi_VN` for explicit number/date formatting |
-| Layout | All protected screens render their body inside `ResponsiveBody` (centered, max width 640) so wide desktop windows do not stretch the UI |
+| Layout | `MobileAppFrame` wraps the entire Navigator using MaterialApp.builder: Windows windows >=600 dp wide and >=440 dp high show a centered 430 dp mobile viewport with a frame; height fits the available window up to 900 dp. Narrow windows/phones fill the viewport, preserving real safe areas and keyboard insets. Keep bottom NavigationBar; ResponsiveBody still limits protected content to 640 dp on larger unframed devices |
 | Optional entry points | Hide month UI until M7, budget UI until M8, registration until M9, and CSV export until M10 |
-| Error display | `SnackBar` for transient errors; inline `errorText` for form fields |
+| Error display | `SnackBar` for transient errors; inline `errorText` for form fields; Login uses a single inline banner above the submit button |
 | Mandatory test 10 | Applies to Firebase/REST only. Not applicable to SQLite. State this in the report |
-| Theme | Material 3, seed color teal; income = green, expense = red (defined once in `core/app_theme.dart`) |
+| Theme | Material 3, seed color teal; income = green, expense = red; full Be Vietnam Pro TextTheme, spacing 4/8/16/24/32 and control/card/balance radii 12/16/20. Updated UI decisions are recorded in UI_UX_IMPROVEMENT_PLAN.md |
 
 ---
 
@@ -315,7 +318,7 @@ class AppDatabase {
 Do not use the default `getDatabasesPath()` of the FFI factory for the real app: on desktop it is relative to the working directory (`.dart_tool/sqflite_common_ffi/databases`), which differs between `flutter run` and a built `.exe`, so data would appear to "disappear".
 
 `_onCreate`: run the three `CREATE TABLE` statements and the index in one batch, then insert the two seed users. For each seed user generate a salt with `PasswordHasher.generateSalt()` and store `PasswordHasher.hash(password, salt)`.
-The seed credentials are the **only** plaintext passwords in the codebase (constants in `core/constants.dart`); they are never persisted in plaintext and are documented in the README as demo accounts.
+Public demo credentials appear in `core/constants.dart` and the explicitly invoked presentation tool `tool/demo_dataset.dart`; they are never persisted in plaintext. The tool's shared demo password is documented in DEMO_DATA_GUIDE.md. Real session storage still contains only userId/timestamp, and user records store only hash/salt.
 
 ### 5.3 Models
 
@@ -662,7 +665,7 @@ Navigation rules (important for the "Back after logout" requirement):
 
 ## 9. Screens (specification)
 
-All protected screens place their body inside `ResponsiveBody` (centered, `maxWidth: 640`) so a wide Windows window does not stretch forms and lists.
+All protected screens place their body inside `ResponsiveBody` (centered, `maxWidth: 640`). The root `MobileAppFrame` applies the owner's 430 dp mobile viewport on wide Windows windows, including route overlays/dialogs. Resize without losing Navigator/tab/filter state. No fake status bar, device time, or desktop navigation rail.
 
 ### 9.1 SplashScreen (AuthGate)
 - Shows app logo/name and a `CircularProgressIndicator`.
@@ -670,7 +673,7 @@ All protected screens place their body inside `ResponsiveBody` (centered, `maxWi
 
 ### 9.2 LoginScreen
 - `Form` with username and password `TextFormField` (password obscured with show/hide toggle), validators from Section 6.4, `Đăng nhập` button (disabled and spinner while `isBusy`). **Enter submits the form** (`onFieldSubmitted` on the password field). Show `Chưa có tài khoản? Đăng ký` only after M9 is complete.
-- On failure show the generic error in a `SnackBar` and/or banner above the button. Keep the username, clear the password. If `auth.errorMessage` was set by `restoreSession`, show it once and clear it.
+- On failure show the generic error in a single inline banner above the button, with a live-region semantic announcement. Keep the username, clear the password; clear the old banner when the user edits input. If `auth.errorMessage` was set by `restoreSession`, show it once and clear it. The demo hint is a separate block outside the form card.
 - Footer hint (dev/demo): `Tài khoản demo: demo1 / Demo@123`.
 
 ### 9.3 RegisterScreen (optional feature F9, but wired from M9)
@@ -683,15 +686,16 @@ All protected screens place their body inside `ResponsiveBody` (centered, `maxWi
 
 ### 9.5 DashboardScreen
 Top to bottom:
-1. **Three `SummaryCard`s (all-time):** `Tổng thu` (green), `Tổng chi` (red), `Số dư` (green if ≥ 0, red if < 0).
+1. **Three `SummaryCard`s (all-time):** prominent `Số dư` (green if ≥ 0, red if < 0), followed by `Tổng thu` (green) and `Tổng chi` (red). Stack the supporting cards when amounts or scaled text need more space.
 2. **Section `Theo tháng` (from M7):** `MonthSelector` (◀ `Tháng MM/yyyy` ▶; ▶ disabled on the current month), month income/expense, `CategoryBreakdown` (expense by category for the selected month: label, amount, percent of month expense, `LinearProgressIndicator`; empty state if no expense). From M8 also show `BudgetProgress` (if a budget exists: progress bar, `đã chi / hạn mức`, color green < 80%, amber 80–100%, red > 100%; if none: button `Đặt ngân sách`). Hide the entire month section before M7 and all budget controls before M8.
 3. **Recent transactions:** the 5 most recent (`TransactionTile`), `Xem tất cả` switches to the Giao dịch tab.
 - Wrap in `Consumer<TransactionProvider>`; pull-to-refresh (and a `Tải lại` icon button for desktop mouse users) calls `refresh()`.
+- Use static skeleton placeholders for the initial load rather than displaying zero totals as actual data. A refresh after a successful load retains the current snapshot with progress.
 - Tier B: when `needsRefresh` is true, show a stale-data banner with `Thử tải lại` that retries reads only; never repeat a previously committed mutation.
 
 ### 9.6 TransactionListScreen
 - Search `TextField` (debounce 300 ms via `Timer`, then `provider.setSearch`), with clear button.
-- `FilterBar`: `ChoiceChip`s `Tất cả | Thu | Chi` (type), a category `DropdownButton` driven by `categoryOptions` (with `Tất cả danh mục`), a sort menu (`Mới nhất`, `Cũ nhất`, `Tiền giảm dần`, `Tiền tăng dần`), and `Xóa bộ lọc` visible when `hasActiveFilters`.
+- `FilterBar`: `ChoiceChip`s `Tất cả | Thu | Chi` (type), a category dropdown driven by `categoryOptions` (with `Tất cả danh mục`), a visible `Sắp xếp` dropdown (`Mới nhất`, `Cũ nhất`, `Tiền giảm dần`, `Tiền tăng dần`), and `Xóa bộ lọc` visible when `hasActiveFilters`. Show the result count and removable query/type/category chips; removing one condition preserves independent state.
 - `ListView.builder` over `provider.visible` using `TransactionTile` (type icon + color, category, note preview, date `dd/MM/yyyy`, amount with `+`/`−` and color). Tap → detail.
 - `EmptyState`: no data at all → `Chưa có giao dịch. Nhấn + để thêm.`; no match → `Không tìm thấy giao dịch phù hợp.` with a clear-filters button.
 - Swipe-to-delete is **not** used (delete only with confirmation from the Detail screen).
@@ -699,6 +703,7 @@ Top to bottom:
 ### 9.7 TransactionFormScreen (Add + Edit, one screen)
 - Constructor: `FinanceTransaction? initial`. Title `Thêm giao dịch` / `Sửa giao dịch`.
 - Fields: type `SegmentedButton<TxType>` (`Thu`/`Chi`), amount (Section 6.4 rules), category dropdown (from `categoriesFor(type)`; **reset to null when type changes**), date (read-only field opening `showDatePicker`, `firstDate: 2000-01-01`, `lastDate: today`, default today), note (optional, multi-line, max 200).
+- Use a 24 dp amount style and a formatted VND helper. Category/date share a row only if the local content width is at least 420 dp and text scale is at most 1.25; otherwise stack them. Measure local content inside the mobile frame, not the outer desktop window.
 - Save: reject the handler immediately if `_isSaving` is already true; validate the form; set `_isSaving = true` synchronously **before the first await**; capture the provider's `userEpoch`; build `FinanceTransaction` (`userId` set by the provider) → await `add`/`update` → inspect `SaveResult`. Disable the button while saving and ignore rapid repeated clicks.
 - If unmounted or the captured epoch is obsolete after the await, perform no UI action. If `result.ok == false`, show `result.message`, stay on the form, and retain all input. If `result.ok == true`, close the form exactly once, then show `result.alert` or the post-commit refresh warning through the app's `ScaffoldMessenger`. A refresh warning must never leave a successfully inserted transaction ready to be inserted again.
 - Reset `_isSaving` in `finally` only if the form is still mounted. The outcome of the write comes from `SaveResult.ok`, never from whether an alert is null or whether `errorMessage` happens to be set.
@@ -706,7 +711,7 @@ Top to bottom:
 ### 9.8 TransactionDetailScreen
 - Takes `int id`. Wrap in `Consumer<TransactionProvider>` and read `provider.byId(id)`, so edits are reflected immediately; when a completed load confirms it is missing, schedule a single post-frame close of this detail route. A loading/refresh-error state alone does not prove deletion.
 - Shows all fields: type, amount, category, date, note (or `Không có ghi chú`), created time.
-- Buttons `Sửa` → `/transaction/edit`, `Xóa` → `ConfirmDialog` (title `Xóa giao dịch?`, actions `Hủy` (default/autofocus) and `Xóa`) → on confirm await `delete(id)`. Only a successful deletion closes the detail route and shows `SnackBar('Đã xóa giao dịch')`; a post-commit refresh warning is shown separately. Coordinate the missing-row redirect and delete handler so exactly one pop occurs, outside build and only while mounted in the current epoch.
+- AppBar action with tooltip `Sửa giao dịch` → `/transaction/edit`. Show category/amount/date as the main card, with adaptive metadata below and a separate outlined `Xóa giao dịch` action → `ConfirmDialog` (title `Xóa giao dịch?`, actions `Hủy` (default/autofocus) and `Xóa`) → on confirm await `delete(id)`. Only a successful deletion closes the detail route and shows `SnackBar('Đã xóa giao dịch')`; a post-commit refresh warning is shown separately. Coordinate the missing-row redirect and delete handler so exactly one pop occurs, outside build and only while mounted in the current epoch.
 
 ### 9.9 BudgetScreen (optional feature F7)
 - Available from M8. Shows the selected month (from the provider), numeric field `Hạn mức chi tiêu (₫)` using the complete-edit formatter in Section 6.4, `Lưu` and `Xóa ngân sách` (with confirm). Saves via `saveBudget` / `removeBudget`, then pops only after the write commits; handle any subsequent refresh warning as described in Section 7.4.

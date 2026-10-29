@@ -1,0 +1,3 @@
+Formatted lib\providers\transaction_provider.dart
+Formatted lib\widgets\month_selector.dart
+Formatted 65 files (2 changed) in 0.14 seconds.

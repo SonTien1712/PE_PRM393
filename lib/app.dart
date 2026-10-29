@@ -5,20 +5,25 @@ import 'core/app_routes.dart';
 import 'core/app_theme.dart';
 import 'data/models/finance_transaction.dart';
 import 'screens/home_shell.dart';
+import 'screens/budget_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/transaction_detail_screen.dart';
 import 'screens/transaction_form_screen.dart';
 import 'widgets/require_auth.dart';
+import 'widgets/mobile_app_frame.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({super.key, this.now});
+  final DateTime Function()? now;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Sổ Thu Chi',
     debugShowCheckedModeBanner: false,
     theme: AppTheme.light,
+    builder: (context, child) => MobileAppFrame(child: child!),
     locale: const Locale('vi'),
     supportedLocales: const [Locale('vi')],
     localizationsDelegates: const [
@@ -37,17 +42,22 @@ class App extends StatelessWidget {
         screen = const SplashScreen();
       case AppRoutes.login:
         screen = const LoginScreen();
+      case AppRoutes.register:
+        screen = const RegisterScreen();
       case AppRoutes.home:
         protected = true;
         screen = const HomeShell();
+      case AppRoutes.budget:
+        protected = true;
+        screen = const BudgetScreen();
       case AppRoutes.transactionNew:
         protected = true;
-        screen = const TransactionFormScreen();
+        screen = TransactionFormScreen(now: now);
       case AppRoutes.transactionEdit:
         protected = true;
         final argument = settings.arguments;
         screen = argument is FinanceTransaction
-            ? TransactionFormScreen(initial: argument)
+            ? TransactionFormScreen(initial: argument, now: now)
             : const _UnknownScreen();
       case AppRoutes.transactionDetail:
         protected = true;

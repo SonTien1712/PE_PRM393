@@ -4,8 +4,14 @@ import 'package:flutter/foundation.dart';
 
 import '../core/app_exception.dart';
 import '../core/categories.dart';
+import '../core/budget_alert_calculator.dart';
 import '../core/constants.dart';
+import '../core/csv_export.dart';
+import '../core/month_utils.dart';
 import '../core/text_utils.dart';
+import '../data/models/category_total.dart';
+import '../data/models/budget.dart';
+import '../data/models/budget_alert.dart';
 import '../data/models/finance_transaction.dart';
 import '../data/models/save_result.dart';
 import '../data/models/summary_totals.dart';
@@ -15,9 +21,17 @@ import '../data/repositories/transaction_repository.dart';
 enum SortOption { newest, oldest, amountDesc, amountAsc }
 
 class TransactionProvider extends ChangeNotifier {
-  TransactionProvider(this._transactions, BudgetRepository budgetRepository);
+  TransactionProvider(
+    this._transactions,
+    this._budgets, {
+    DateTime Function()? now,
+  }) : _now = now ?? DateTime.now {
+    _selectedMonth = _currentMonth;
+  }
 
   final TransactionRepository _transactions;
+  final BudgetRepository _budgets;
+  final DateTime Function() _now;
   static const _emptyTotals = SummaryTotals(income: 0, expense: 0);
   static const _saveWarning =
       'Đã lưu giao dịch, nhưng chưa tải lại được dữ liệu. Vui lòng thử tải lại.';
@@ -26,6 +40,14 @@ class TransactionProvider extends ChangeNotifier {
 
   List<FinanceTransaction> _all = const [];
   SummaryTotals _totals = _emptyTotals;
+  late DateTime _selectedMonth;
+  SummaryTotals _monthTotals = _emptyTotals;
+  List<CategoryTotal> _monthBreakdown = const [];
+  Budget? _monthBudget;
+  String? _monthDataKey;
+  int _monthReadVersion = 0;
+  bool _isMonthLoading = false;
+  bool _monthNeedsRefresh = false;
   int? _userId;
   int _epoch = 0;
   int _readVersion = 0;
@@ -51,12 +73,21 @@ class TransactionProvider extends ChangeNotifier {
   bool get mutationBusy => _isSaving;
   bool get hasLoaded => _hasLoaded;
   bool get lastRefreshSucceeded => _lastRefreshSucceeded;
-  bool get needsRefresh => _needsRefresh;
+  bool get needsRefresh => _needsRefresh || _monthNeedsRefresh;
   String? get errorMessage => _errorMessage;
   String get searchQuery => _searchQuery;
   TxType? get typeFilter => _typeFilter;
   String? get categoryFilter => _categoryFilter;
   SortOption get sort => _sort;
+  DateTime get selectedMonth => _selectedMonth;
+  String get selectedMonthKey => monthKey(_selectedMonth);
+  SummaryTotals get monthTotals => _monthTotals;
+  List<CategoryTotal> get monthBreakdown => _monthBreakdown;
+  bool get hasMonthData => _monthDataKey == selectedMonthKey;
+  bool get isMonthLoading => _isMonthLoading;
+  Budget? get monthBudget => hasMonthData ? _monthBudget : null;
+  bool get canGoNextMonth => _selectedMonth.isBefore(_currentMonth);
+  DateTime get _currentMonth => DateTime(_now().year, _now().month);
 
   bool _isCurrent(int epoch) => !_disposed && epoch == _epoch;
   bool _isCurrentRead(int epoch, int version) =>
@@ -69,6 +100,14 @@ class TransactionProvider extends ChangeNotifier {
     _readVersion++;
     _all = const [];
     _totals = _emptyTotals;
+    _selectedMonth = _currentMonth;
+    _monthTotals = _emptyTotals;
+    _monthBreakdown = const [];
+    _monthBudget = null;
+    _monthDataKey = null;
+    _monthReadVersion++;
+    _isMonthLoading = false;
+    _monthNeedsRefresh = false;
     _isLoading = false;
     _isSaving = false;
     _hasLoaded = false;
@@ -98,7 +137,10 @@ class TransactionProvider extends ChangeNotifier {
     final userId = _userId;
     if (userId == null || _disposed) return false;
     final version = ++_readVersion;
+    final monthVersion = ++_monthReadVersion;
+    final month = _selectedMonth;
     _isLoading = true;
+    _isMonthLoading = true;
     _lastRefreshSucceeded = false;
     _errorMessage = null;
     notifyListeners();
@@ -107,13 +149,20 @@ class TransactionProvider extends ChangeNotifier {
       if (!_isCurrentRead(epoch, version)) return false;
       final totals = await _transactions.getTotals(userId);
       if (!_isCurrentRead(epoch, version)) return false;
+      final monthData = await _readMonth(userId, month);
+      if (!_isCurrentRead(epoch, version) ||
+          monthVersion != _monthReadVersion) {
+        return false;
+      }
       // Publish the rows and SQL totals together, retaining the prior snapshot
       // if either query fails. An older refresh cannot replace a newer one.
       _all = List.unmodifiable(rows);
       _totals = totals;
+      _publishMonth(month, monthData);
       _hasLoaded = true;
       _lastRefreshSucceeded = true;
       _needsRefresh = false;
+      _monthNeedsRefresh = false;
       _errorMessage = null;
       return true;
     } catch (error, stack) {
@@ -126,6 +175,75 @@ class TransactionProvider extends ChangeNotifier {
     } finally {
       if (_isCurrentRead(epoch, version)) {
         _isLoading = false;
+        if (monthVersion == _monthReadVersion) _isMonthLoading = false;
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<(SummaryTotals, List<CategoryTotal>, Budget?)> _readMonth(
+    int userId,
+    DateTime month,
+  ) async {
+    final (from, to) = monthRange(month);
+    final totals = await _transactions.getTotals(
+      userId,
+      fromDate: from,
+      toExclusive: to,
+    );
+    final breakdown = await _transactions.getExpenseByCategory(
+      userId,
+      from,
+      to,
+    );
+    final budget = await _budgets.getForMonth(userId, monthKey(month));
+    return (totals, breakdown, budget);
+  }
+
+  void _publishMonth(
+    DateTime month,
+    (SummaryTotals, List<CategoryTotal>, Budget?) data,
+  ) {
+    _monthTotals = data.$1;
+    _monthBreakdown = List.unmodifiable(data.$2);
+    _monthBudget = data.$3;
+    _monthDataKey = monthKey(month);
+  }
+
+  Future<void> changeMonth(int deltaMonths) async {
+    if (_disposed || _userId == null || _isSaving || deltaMonths == 0) return;
+    final next = DateTime(
+      _selectedMonth.year,
+      _selectedMonth.month + deltaMonths,
+    );
+    if (next.isAfter(_currentMonth) || next.isBefore(DateTime(2000))) return;
+    _selectedMonth = next;
+    // A new selection must not be labelled with the previous month's snapshot.
+    if (!_hasLoaded || _isLoading) {
+      await refresh();
+      return;
+    }
+    final epoch = _epoch;
+    final userId = _userId!;
+    final version = ++_monthReadVersion;
+    _isMonthLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+    bool current() => _isCurrent(epoch) && version == _monthReadVersion;
+    try {
+      final data = await _readMonth(userId, next);
+      if (!current()) return;
+      _publishMonth(next, data);
+      _monthNeedsRefresh = false;
+    } catch (error, stack) {
+      debugPrint('Month refresh failed: $error\n$stack');
+      if (current()) {
+        _monthNeedsRefresh = true;
+        _errorMessage = _messageFor(error);
+      }
+    } finally {
+      if (current()) {
+        _isMonthLoading = false;
         notifyListeners();
       }
     }
@@ -159,6 +277,8 @@ class TransactionProvider extends ChangeNotifier {
     try {
       // Ownership is always taken from this captured authenticated session.
       final owned = transaction.copyWith(userId: userId);
+      final alert = await _prepareBudgetAlert(owned, updating: updating);
+      if (!_isCurrent(epoch)) return const SaveResult(ok: false);
       if (updating) {
         await _transactions.update(owned);
       } else {
@@ -172,7 +292,7 @@ class TransactionProvider extends ChangeNotifier {
         _errorMessage = _saveWarning;
         return const SaveResult(ok: true, message: _saveWarning);
       }
-      return const SaveResult(ok: true);
+      return SaveResult(ok: true, alert: alert);
     } catch (error, stack) {
       debugPrint('Transaction save failed: $error\n$stack');
       if (!_isCurrent(epoch)) return SaveResult(ok: committed);
@@ -237,6 +357,125 @@ class TransactionProvider extends ChangeNotifier {
         _isSaving = false;
         notifyListeners();
       }
+    }
+  }
+
+  Future<BudgetAlert?> _prepareBudgetAlert(
+    FinanceTransaction transaction, {
+    required bool updating,
+  }) async {
+    if (transaction.type != TxType.expense) return null;
+    final epoch = _epoch;
+    final month = DateTime.tryParse(transaction.date);
+    if (month == null) return null;
+    try {
+      final budget = await _budgets.getForMonth(
+        transaction.userId,
+        monthKey(month),
+      );
+      if (!_isCurrent(epoch) || budget == null) return null;
+      final (from, to) = monthRange(month);
+      final before = await _transactions.getTotals(
+        transaction.userId,
+        fromDate: from,
+        toExclusive: to,
+      );
+      if (!_isCurrent(epoch)) return null;
+      FinanceTransaction? old;
+      if (updating && transaction.id != null) {
+        old = await _transactions.getById(transaction.userId, transaction.id!);
+        if (!_isCurrent(epoch)) return null;
+      }
+      final oldAmount =
+          old != null &&
+              old.type == TxType.expense &&
+              old.date.substring(0, 7) == monthKey(month)
+          ? old.amount
+          : 0;
+      return calculateBudgetAlert(
+        beforeSpent: before.expense,
+        afterSpent: before.expense - oldAmount + transaction.amount,
+        limit: budget.limitAmount,
+      );
+    } catch (error, stack) {
+      // Optional alert reads cannot prevent a valid transaction write.
+      debugPrint('Budget alert unavailable: $error\n$stack');
+      return null;
+    }
+  }
+
+  Future<void> saveBudget(int limit) => _writeBudget(limit);
+  Future<void> removeBudget() => _writeBudget(null);
+
+  Future<void> _writeBudget(int? limit) async {
+    final epoch = _epoch;
+    final userId = _userId;
+    final month = selectedMonthKey;
+    if (_disposed || userId == null) {
+      throw const AppException('Vui lòng đăng nhập để tiếp tục.');
+    }
+    if (_isSaving) throw const AppException('Đang lưu. Vui lòng chờ.');
+    _isSaving = true;
+    _errorMessage = null;
+    notifyListeners();
+    var committed = false;
+    final warning = limit == null
+        ? 'Đã xóa ngân sách, nhưng chưa tải lại được dữ liệu. Vui lòng thử tải lại.'
+        : 'Đã lưu ngân sách, nhưng chưa tải lại được dữ liệu. Vui lòng thử tải lại.';
+    try {
+      final budget = limit == null
+          ? null
+          : Budget(
+              id: monthBudget?.id,
+              userId: userId,
+              month: month,
+              limitAmount: limit,
+            );
+      if (budget == null) {
+        await _budgets.delete(userId, month);
+      } else {
+        await _budgets.upsert(budget);
+      }
+      committed = true;
+      if (!_isCurrent(epoch)) return;
+      if (selectedMonthKey == month) _monthBudget = budget;
+      final loaded = await refresh();
+      if (!_isCurrent(epoch)) return;
+      if (!loaded) _errorMessage = warning;
+    } catch (error, stack) {
+      debugPrint('Budget write failed: $error\n$stack');
+      if (!_isCurrent(epoch)) return;
+      if (committed) {
+        _needsRefresh = true;
+        _errorMessage = warning;
+      } else {
+        throw AppException(_messageFor(error));
+      }
+    } finally {
+      if (_isCurrent(epoch)) {
+        _isSaving = false;
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<String> buildCsv() async {
+    final epoch = _epoch;
+    final userId = _userId;
+    if (_disposed || userId == null) {
+      throw const AppException('Vui lòng đăng nhập để tiếp tục.');
+    }
+    try {
+      final rows = await _transactions.getAll(userId);
+      if (!_isCurrent(epoch)) {
+        throw const AppException('Phiên đăng nhập đã thay đổi.');
+      }
+      if (rows.isEmpty) throw const AppException('Chưa có dữ liệu để xuất');
+      return buildTransactionsCsv(rows);
+    } catch (error) {
+      if (error is AppException) rethrow;
+      debugPrint('CSV read failed: $error');
+      throw const AppException('Không thể xuất file. Vui lòng thử lại.');
     }
   }
 

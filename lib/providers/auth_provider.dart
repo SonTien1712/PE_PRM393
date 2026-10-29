@@ -19,10 +19,12 @@ class AuthProvider extends ChangeNotifier {
   bool _disposed = false;
   int _operation = 0;
   String? _errorMessage;
+  bool _registrationCreated = false;
 
   AppUser? get currentUser => _currentUser;
   bool get isBusy => _isBusy;
   String? get errorMessage => _errorMessage;
+  bool get registrationCreated => _registrationCreated;
 
   void clearError() {
     if (_disposed || _errorMessage == null) return;
@@ -36,6 +38,7 @@ class AuthProvider extends ChangeNotifier {
     _isBusy = true;
     _errorMessage = null;
     final operation = ++_operation;
+    _registrationCreated = false;
     notifyListeners();
     return operation;
   }
@@ -117,6 +120,42 @@ class AuthProvider extends ChangeNotifier {
         _errorMessage = error is AppException
             ? error.message
             : 'Không thể đăng nhập. Vui lòng thử lại.';
+      }
+      return false;
+    } finally {
+      _finish(operation);
+    }
+  }
+
+  Future<bool> register(
+    String username,
+    String password,
+    String displayName,
+  ) async {
+    if (_disposed || _isBusy) return false;
+    final operation = _begin();
+    var created = false;
+    try {
+      final user = await _users.register(
+        username: username,
+        password: password,
+        displayName: displayName,
+      );
+      created = true;
+      if (!_isCurrent(operation)) return false;
+      _registrationCreated = true;
+      await _session.save(user.id);
+      if (!_isCurrent(operation)) return false;
+      _currentUser = user;
+      return true;
+    } catch (error, stack) {
+      debugPrint('Registration failed: $error\n$stack');
+      if (_isCurrent(operation)) {
+        _errorMessage = created
+            ? 'Đã tạo tài khoản. Vui lòng đăng nhập để tiếp tục.'
+            : error is AppException
+            ? error.message
+            : 'Không thể đăng ký. Vui lòng thử lại.';
       }
       return false;
     } finally {

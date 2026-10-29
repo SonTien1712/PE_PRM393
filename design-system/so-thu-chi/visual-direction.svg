@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1100" viewBox="0 0 1440 1100" role="img" aria-labelledby="title description">
+  <title id="title">Sổ Thu Chi — Định hướng giao diện đề xuất</title>
+  <desc id="description">Phác thảo dashboard desktop và điện thoại với dữ liệu minh họa, bảng màu và các ưu tiên thiết kế. Chưa phải ảnh ứng dụng đã triển khai.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#173B37" flood-opacity=".06"/></filter>
+    <clipPath id="desktopClip"><rect x="40" y="176" width="1016" height="620" rx="20"/></clipPath>
+    <clipPath id="mobileClip"><rect x="1096" y="176" width="304" height="620" rx="28"/></clipPath>
+    <symbol id="wallet" viewBox="0 0 24 24"><path d="M4 7V5a2 2 0 0 1 2-2h12M4 7h16v14H6a2 2 0 0 1-2-2V7Zm12 5h4v5h-4v-5Z"/><path d="M17.8 14.5h.1"/></symbol>
+    <symbol id="grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="list" viewBox="0 0 24 24"><path d="M8 5h13M8 12h13M8 19h13M3 5h.1M3 12h.1M3 19h.1"/></symbol>
+    <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="arrowUp" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></symbol>
+    <symbol id="arrowDown" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></symbol>
+    <symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6.2 7a7 7 0 0 1 11.6-1L20 9M4 15l2.2 3A7 7 0 0 0 17.8 17"/></symbol>
+    <symbol id="food" viewBox="0 0 24 24"><path d="M4 3v6c0 2 6 2 6 0V3M7 3v18M20 21V3c-5 2-5 10 0 10"/></symbol>
+    <symbol id="bag" viewBox="0 0 24 24"><path d="M4 8h16l1 13H3L4 8Zm4 0V6a4 4 0 0 1 8 0v2"/></symbol>
+    <symbol id="car" viewBox="0 0 24 24"><path d="m4 10 2-6h12l2 6M4 10h16v8H4v-8ZM6 18v3m12-3v3M7 14h1m8 0h1"/></symbol>
+    <symbol id="work" viewBox="0 0 24 24"><path d="M8 7V3h8v4M3 7h18v14H3V7Zm0 6c6 3 12 3 18 0M10 13h4v4h-4v-4Z"/></symbol>
+    <symbol id="logout" viewBox="0 0 24 24"><path d="M10 3H4v18h6M10 12h11m-4-4 4 4-4 4"/></symbol>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;fill:#173B37}
+      .muted{fill:#526763}.green{fill:#15805E}.red{fill:#CB3F4F}.white{fill:#fff}
+      .icon{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+      .small{font-size:13px}.body{font-size:15px}.bold{font-weight:600}
+    </style>
+  </defs>
+
+  <rect width="1440" height="1100" fill="#EEF3F0"/>
+  <text x="40" y="42" font-size="12" font-weight="700" letter-spacing="2" class="muted">SỔ THU CHI / ĐỊNH HƯỚNG UI v2</text>
+  <text x="40" y="84" font-size="30" font-weight="700">Tổng quan rõ ràng, thao tác thuận tiện.</text>
+  <text x="40" y="113" font-size="16" class="muted">Ưu tiên số dư · Danh mục dễ nhận biết · Biểu mẫu có hành động rõ ràng</text>
+  <rect x="1163" y="34" width="237" height="32" rx="16" fill="#FFFFFF" stroke="#DCE7E3"/>
+  <text x="1281.5" y="55" text-anchor="middle" font-size="11" font-weight="700" letter-spacing=".6">PHÁC THẢO ĐỀ XUẤT</text>
+  <text x="40" y="155" class="small bold">DESKTOP v2 · Mở rộng bố cục sau khi cập nhật đặc tả</text>
+  <text x="1096" y="155" class="small bold">BỐ CỤC GỌN · Cùng hệ thiết kế</text>
+
+  <rect x="40" y="176" width="1016" height="620" rx="20" fill="#F5F8F7" filter="url(#shadow)"/>
+  <g clip-path="url(#desktopClip)">
+    <rect x="40" y="176" width="80" height="620" fill="#FFFFFF"/>
+    <path d="M120 176v620" stroke="#DCE7E3"/>
+    <rect x="60" y="200" width="40" height="40" rx="12" fill="#007F78"/>
+    <use href="#wallet" x="69" y="208" width="22" height="22" class="icon" color="#FFFFFF"/>
+    <rect x="50" y="280" width="60" height="68" rx="14" fill="#EAF6F3"/>
+    <use href="#grid" x="69" y="292" width="22" height="22" class="icon" color="#173B37"/>
+    <text x="80" y="333" text-anchor="middle" font-size="10" font-weight="600">Tổng quan</text>
+    <use href="#list" x="69" y="375" width="22" height="22" class="icon" color="#526763"/>
+    <text x="80" y="416" text-anchor="middle" font-size="10" class="muted">Giao dịch</text>
+    <use href="#logout" x="69" y="749" width="22" height="22" class="icon" color="#526763"/>
+
+    <text x="152" y="224" font-size="25" font-weight="700">Tổng quan</text>
+    <text x="152" y="249" class="body muted">Chào bạn, cùng xem lại thu chi của mình.</text>
+    <rect x="790" y="204" width="48" height="48" rx="12" fill="#FFFFFF" stroke="#DCE7E3"/>
+    <use href="#refresh" x="803" y="217" width="22" height="22" class="icon" color="#526763"/>
+    <rect x="850" y="204" width="174" height="48" rx="12" fill="#007F78"/>
+    <use href="#plus" x="865" y="217" width="22" height="22" class="icon" color="#FFFFFF"/>
+    <text x="899" y="234" font-size="14" font-weight="600" class="white">Thêm giao dịch</text>
+
+    <rect x="152" y="280" width="368" height="144" rx="20" fill="#F4FBF7" stroke="#C7DFD3"/>
+    <text x="176" y="312" class="body bold">Số dư</text>
+    <text x="176" y="359" font-size="36" font-weight="700" class="green">6.200.000 ₫</text>
+    <text x="176" y="399" class="small muted">Toàn thời gian · Tổng thu − Tổng chi</text>
+    <circle cx="482" cy="308" r="14" fill="#FFFFFF"/>
+    <use href="#wallet" x="473" y="298" width="18" height="18" class="icon" color="#15805E"/>
+
+    <rect x="536" y="280" width="236" height="144" rx="16" fill="#FFFFFF" stroke="#DCE7E3"/>
+    <use href="#arrowDown" x="556" y="300" width="22" height="22" class="icon" color="#15805E"/>
+    <text x="588" y="317" class="body bold">Tổng thu</text>
+    <text x="556" y="361" font-size="25" font-weight="600" class="green">10.000.000 ₫</text>
+    <text x="556" y="399" class="small muted">Toàn thời gian</text>
+    <rect x="788" y="280" width="236" height="144" rx="16" fill="#FFFFFF" stroke="#DCE7E3"/>
+    <use href="#arrowUp" x="808" y="300" width="22" height="22" class="icon" color="#CB3F4F"/>
+    <text x="840" y="317" class="body bold">Tổng chi</text>
+    <text x="808" y="361" font-size="25" font-weight="600" class="red">3.800.000 ₫</text>
+    <text x="808" y="399" class="small muted">Toàn thời gian</text>
+
+    <rect x="152" y="448" width="872" height="316" rx="16" fill="#FFFFFF" stroke="#DCE7E3"/>
+    <text x="176" y="483" font-size="18" font-weight="600">Giao dịch gần đây</text>
+    <text x="979" y="481" text-anchor="end" font-size="14" font-weight="600" fill="#007F78">Xem tất cả</text>
+    <use href="#chevron" x="985" y="465" width="20" height="20" class="icon" color="#007F78"/>
+    <path d="M176 505h824" stroke="#DCE7E3"/>
+    <g>
+      <rect x="176" y="519" width="40" height="40" rx="12" fill="#FFF8F9"/>
+      <use href="#food" x="185" y="528" width="22" height="22" class="icon" color="#CB3F4F"/>
+      <text x="232" y="536" class="body bold">Ăn uống</text><text x="232" y="557" class="small muted">Bữa trưa cùng bạn</text>
+      <text x="770" y="547" class="small muted">28/10/2026</text>
+      <text x="1000" y="547" text-anchor="end" font-size="16" font-weight="600" class="red">−85.000 ₫</text>
+      <path d="M232 574h768" stroke="#EDF2EF"/>
+    </g>
+    <g>
+      <rect x="176" y="581" width="40" height="40" rx="12" fill="#FFF8F9"/>
+      <use href="#car" x="185" y="590" width="22" height="22" class="icon" color="#CB3F4F"/>
+      <text x="232" y="598" class="body bold">Di chuyển</text><text x="232" y="619" class="small muted">Đổ xăng</text>
+      <text x="770" y="609" class="small muted">27/10/2026</text>
+      <text x="1000" y="609" text-anchor="end" font-size="16" font-weight="600" class="red">−100.000 ₫</text>
+      <path d="M232 636h768" stroke="#EDF2EF"/>
+    </g>
+    <g>
+      <rect x="176" y="643" width="40" height="40" rx="12" fill="#F4FBF7"/>
+      <use href="#work" x="185" y="652" width="22" height="22" class="icon" color="#15805E"/>
+      <text x="232" y="660" class="body bold">Lương</text><text x="232" y="681" class="small muted">Lương tháng 10</text>
+      <text x="770" y="671" class="small muted">25/10/2026</text>
+      <text x="1000" y="671" text-anchor="end" font-size="16" font-weight="600" class="green">+10.000.000 ₫</text>
+      <path d="M232 698h768" stroke="#EDF2EF"/>
+    </g>
+    <g>
+      <rect x="176" y="705" width="40" height="40" rx="12" fill="#FFF8F9"/>
+      <use href="#bag" x="185" y="714" width="22" height="22" class="icon" color="#CB3F4F"/>
+      <text x="232" y="722" class="body bold">Mua sắm</text><text x="232" y="743" class="small muted">Đồ dùng cá nhân</text>
+      <text x="770" y="733" class="small muted">24/10/2026</text>
+      <text x="1000" y="733" text-anchor="end" font-size="16" font-weight="600" class="red">−450.000 ₫</text>
+    </g>
+  </g>
+  <rect x="40" y="176" width="1016" height="620" rx="20" fill="none" stroke="#D5E1DB"/>
+
+  <rect x="1096" y="176" width="304" height="620" rx="28" fill="#F5F8F7" filter="url(#shadow)"/>
+  <g clip-path="url(#mobileClip)">
+    <text x="1116" y="217" font-size="20" font-weight="700">Tổng quan</text>
+    <use href="#refresh" x="1356" y="198" width="22" height="22" class="icon" color="#526763"/>
+    <text x="1116" y="242" class="small muted">Chào bạn, cùng xem lại thu chi.</text>
+    <rect x="1116" y="262" width="264" height="132" rx="20" fill="#F4FBF7" stroke="#C7DFD3"/>
+    <text x="1136" y="291" font-size="14" font-weight="600">Số dư</text>
+    <text x="1136" y="332" font-size="30" font-weight="700" class="green">6.200.000 ₫</text>
+    <text x="1136" y="372" class="small muted">Toàn thời gian</text>
+    <rect x="1116" y="406" width="264" height="56" rx="12" fill="#FFFFFF" stroke="#DCE7E3"/>
+    <use href="#arrowDown" x="1130" y="422" width="22" height="22" class="icon" color="#15805E"/>
+    <text x="1159" y="440" class="small bold">Thu</text>
+    <text x="1364" y="440" text-anchor="end" font-size="16" font-weight="600" class="green">10.000.000 ₫</text>
+    <rect x="1116" y="470" width="264" height="56" rx="12" fill="#FFFFFF" stroke="#DCE7E3"/>
+    <use href="#arrowUp" x="1130" y="486" width="22" height="22" class="icon" color="#CB3F4F"/>
+    <text x="1159" y="504" class="small bold">Chi</text>
+    <text x="1364" y="504" text-anchor="end" font-size="16" font-weight="600" class="red">3.800.000 ₫</text>
+    <text x="1116" y="561" font-size="16" font-weight="600">Giao dịch gần đây</text>
+    <rect x="1116" y="577" width="264" height="72" rx="14" fill="#FFFFFF" stroke="#DCE7E3"/>
+    <rect x="1128" y="591" width="36" height="36" rx="10" fill="#FFF8F9"/>
+    <use href="#food" x="1136" y="599" width="20" height="20" class="icon" color="#CB3F4F"/>
+    <text x="1174" y="606" font-size="14" font-weight="600">Ăn uống</text>
+    <text x="1174" y="630" font-size="12" class="muted">28/10/2026</text>
+    <text x="1368" y="616" text-anchor="end" font-size="14" font-weight="600" class="red">−85.000 ₫</text>
+    <rect x="1216" y="665" width="164" height="48" rx="16" fill="#007F78"/>
+    <use href="#plus" x="1230" y="678" width="22" height="22" class="icon" color="#FFFFFF"/>
+    <text x="1260" y="695" font-size="13" font-weight="600" class="white">Thêm giao dịch</text>
+    <rect x="1096" y="729" width="304" height="67" fill="#FFFFFF"/>
+    <path d="M1096 729h304" stroke="#DCE7E3"/>
+    <rect x="1142" y="736" width="60" height="30" rx="15" fill="#EAF6F3"/>
+    <use href="#grid" x="1162" y="741" width="20" height="20" class="icon" color="#173B37"/>
+    <text x="1172" y="784" text-anchor="middle" font-size="11" font-weight="600">Tổng quan</text>
+    <use href="#list" x="1314" y="741" width="20" height="20" class="icon" color="#526763"/>
+    <text x="1324" y="784" text-anchor="middle" font-size="11" class="muted">Giao dịch</text>
+  </g>
+  <rect x="1096" y="176" width="304" height="620" rx="28" fill="none" stroke="#D5E1DB"/>
+
+  <rect x="40" y="828" width="1360" height="212" rx="20" fill="#FFFFFF" stroke="#DCE7E3"/>
+  <text x="64" y="863" font-size="18" font-weight="600">Một hệ thiết kế nhất quán</text>
+  <text x="64" y="892" class="body muted">Sáng, gọn, thân thiện · Màu có ý nghĩa · Số tiền dễ đọc</text>
+  <g transform="translate(64 914)">
+    <rect width="48" height="48" rx="12" fill="#007F78"/>
+    <text x="64" y="18" class="small bold">Teal nhận diện</text><text x="64" y="39" font-size="12" class="muted">#007F78</text>
+    <rect x="210" width="48" height="48" rx="12" fill="#15805E"/>
+    <text x="274" y="18" class="small bold">Khoản thu</text><text x="274" y="39" font-size="12" class="muted">#15805E</text>
+    <rect x="406" width="48" height="48" rx="12" fill="#CB3F4F"/>
+    <text x="470" y="18" class="small bold">Khoản chi</text><text x="470" y="39" font-size="12" class="muted">#CB3F4F</text>
+  </g>
+  <path d="M708 852v164" stroke="#DCE7E3"/>
+  <text x="740" y="868" class="small bold">CHỮ &amp; KHOẢNG CÁCH</text>
+  <text x="740" y="905" font-size="24" font-weight="600">Be Vietnam Pro</text>
+  <text x="740" y="931" class="small muted">Font đề xuất khi triển khai · Bundle offline</text>
+  <text x="740" y="964" class="small">Nhịp 8 dp · Control ≥ 48 dp · Form có footer Lưu/Hủy</text>
+  <text x="64" y="1009" class="small muted">Giữ nghiệp vụ hiện có. Ưu tiên typography → component → màn hình → responsive.</text>
+  <text x="40" y="1072" class="small muted">Dữ liệu minh họa · Chưa triển khai · Desktop v2 cần điều chỉnh giới hạn 640 dp trong đặc tả.</text>
+  <text x="1400" y="1072" text-anchor="end" font-size="12" class="muted">Phác thảo dùng font hệ thống; cỡ chữ không phải tỷ lệ thiết bị.</text>
+</svg>

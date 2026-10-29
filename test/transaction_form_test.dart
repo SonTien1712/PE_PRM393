@@ -224,15 +224,15 @@ void main() {
       await tester.pumpAndSettle();
       expect(harness.transactions.totals.expense, 50000);
       await tester.pump(const Duration(seconds: 5));
+      await tester.tap(find.text('Giao dịch').last);
+      await tester.pumpAndSettle();
       await tester.ensureVisible(find.byType(TransactionTile).first);
       await tester.pumpAndSettle();
       await tester.tap(find.byType(TransactionTile).first);
       await tester.pumpAndSettle();
       expect(find.byType(TransactionDetailScreen), findsOneWidget);
-      await tester.ensureVisible(
-        find.widgetWithText(FilledButton, 'Sửa giao dịch'),
-      );
-      await tester.tap(find.widgetWithText(FilledButton, 'Sửa giao dịch'));
+      await tester.ensureVisible(find.byTooltip('Sửa giao dịch'));
+      await tester.tap(find.byTooltip('Sửa giao dịch'));
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextFormField).at(0), '200000');
       await tester.tap(find.text('Thu').hitTestable());
@@ -256,7 +256,16 @@ void main() {
       await tester.pump(const Duration(seconds: 5));
       await tester.pumpAndSettle();
       final delete = find.widgetWithText(OutlinedButton, 'Xóa giao dịch');
-      await tester.ensureVisible(delete);
+      await tester.scrollUntilVisible(
+        delete,
+        300,
+        scrollable: find
+            .descendant(
+              of: find.byType(TransactionDetailScreen),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+      );
       await tester.tap(delete);
       // The disabled delete button animates while the confirmation is pending.
       await tester.pump(const Duration(milliseconds: 350));

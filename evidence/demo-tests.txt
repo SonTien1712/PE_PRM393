@@ -1,0 +1,10 @@
+00:00 +0: loading D:/FPt/SemesterVIII/PRM393/PE/test/demo_data_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: demo dates remain valid on day one and across year/leap boundaries
+00:00 +1: seed authenticates through the real repository and preserves old data
+00:00 +2: running again neither duplicates nor overwrites an edited demo row
+00:00 +3: a reserved username collision rolls back all new demo accounts
+00:00 +4: SQLite backup reopens as the original snapshot, before demo insertion
+00:00 +5: presentation starts at 79%, then alerts at 80% and above 100%
+00:00 +6: (tearDownAll)
+00:00 +6: All tests passed!
